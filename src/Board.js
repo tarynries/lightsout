@@ -62,7 +62,8 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
         }
       };
 
-      const boardCopy = JSON.parse(JSON.stringify(oldBoard));
+      // const boardCopy = JSON.parse(JSON.stringify(oldBoard));
+      const boardCopy = oldBoard.map((row) => [...row]);
 
       flipCell(y, x, boardCopy);
       flipCell(y, x - 1, boardCopy);
@@ -83,59 +84,33 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
   }
 
   if (hasWon()) {
-    return <div>You won!</div>
+    alert("You Win!");
   }
 
-  //   let tblBoard = [];
+  let tblBoard = [];
 
-  //   for (let y = 0; y < nrows; y++) {
-  //     let row = [];
-  //     for (let x = 0; x < ncols; x++) {
-  //       let coord = `${y}-${x}`;
-  //       row.push(
-  //         <Cell
-  //           key={coord}
-  //           isLit={board[y][x]}
-  //           flipCellsAroundMe={evt => flipCellsAround(coord)}
-  //         />,
-  //       );
-  //     }
-  //     tblBoard.push(<tr key={y}>{row}</tr>);
-  //   }
-
-  //   return (
-  //     <table className="Board">
-  //       <tbody>{tblBoard}</tbody>
-  //     </table>
-  //   );
-  // }
-
-  // if the game is won, just show a winning msg & render nothing else
-
-  // TODO
-
-  // make table board
+  for (let y = 0; y < nrows; y++) {
+    let row = [];
+    for (let x = 0; x < ncols; x++) {
+      let coord = `${y}-${x}`;
+      row.push(
+        <Cell
+          key={coord}
+          isLit={board[y][x]}
+          flipCellsAroundMe={() => flipCellsAround(coord)}
+        />
+      );
+    }
+    tblBoard.push(<tr key={y}>{row}</tr>);
+  }
 
   return (
-    < table className="Board" >
-      <tbody>
-        {board.map((row, rowIndex) => (
-          <tr key={rowIndex}>
-            {row.map((cell, colIndex) => (
-              <Cell
-                key={`${rowIndex}-${colIndex}`}
-                isLit={cell}
-                flipCellsAroundMe={() => flipCellsAround(`${rowIndex}-${colIndex}`)}
-              />
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table >
+    <table className="Board">
+      <tbody>{tblBoard}</tbody>
+    </table>
   );
 }
 
-// TODO
-// }
+
 
 export default Board;

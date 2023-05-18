@@ -16,7 +16,7 @@ import "./Cell.css";
 
 function Cell({ flipCellsAroundMe, isLit }) {
   const classes = `Cell ${isLit ? "Cell-lit" : ""}`;
-  return <div className={classes} onClick={flipCellsAroundMe} />;
+  return <td role="button" className={classes} onClick={flipCellsAroundMe} />;
   //the td component could maybe be a div? but i dont think it is necessary 
 }
 
